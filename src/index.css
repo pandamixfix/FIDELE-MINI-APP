@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  /* Team Lead заметка: Мы делаем body чёрным и используем flexbox для центрирования
+     нашего контейнера с приложением. Это стандартная практика. */
+  @apply flex items-center justify-center bg-black;
+}

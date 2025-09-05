@@ -1,7 +1,7 @@
-import { createHashRouter } from 'react-router-dom';
-import { MainLayout } from '@/components/layouts/MainLayout';
-import { HomePage } from '@/pages/HomePage';
-import { ProfilePage } from '@/pages/ProfilePage';
+import { createHashRouter } from 'react-router-dom'
+import { MainLayout } from '@/components/layouts/MainLayout'
+import { HomePage } from '@/pages/HomePage'
+import { ProfilePage } from '@/pages/ProfilePage'
 
 export const router = createHashRouter([
   {
@@ -18,4 +18,4 @@ export const router = createHashRouter([
       },
     ],
   },
-]);
+])

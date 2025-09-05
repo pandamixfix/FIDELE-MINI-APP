@@ -8,20 +8,20 @@ interface Window {
     // У которого есть обязательное свойство WebApp.
     WebApp: {
       // И далее описываем поля и методы, которые мы используем.
-      initData: string;
+      initData: string
       initDataUnsafe: {
         user?: {
-          id: number;
-          first_name: string;
-          last_name?: string;
-          username?: string;
-        };
+          id: number
+          first_name: string
+          last_name?: string
+          username?: string
+        }
         // ... и другие поля, которые могут прийти от Telegram
-      };
-      ready: () => void;
-      expand: () => void;
-      close: () => void;
-      showAlert: (message: string) => void;
-    };
-  };
+      }
+      ready: () => void
+      expand: () => void
+      close: () => void
+      showAlert: (message: string) => void
+    }
+  }
 }

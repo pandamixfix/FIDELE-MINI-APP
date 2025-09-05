@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path'; // Этот модуль нужен для работы с файловыми путями
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path' // Этот модуль нужен для работы с файловыми путями
 
 export default defineConfig({
   plugins: [react()],
@@ -12,4 +12,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-});
+})
