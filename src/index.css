@@ -36,3 +36,11 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+@layer utilities {
+  .rays-bg {
+    background-image: repeating-conic-gradient(
+      rgba(255, 255, 220, 0.8) 0deg 5deg,
+      transparent 5deg 15deg
+    );
+  }
+}

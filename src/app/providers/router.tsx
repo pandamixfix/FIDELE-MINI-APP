@@ -2,7 +2,7 @@
 
 import { createHashRouter } from 'react-router-dom'
 import { MainLayout } from '@/widgets/layouts/MainLayout'
-import { HomePage } from '@/pages/HomePage'
+import { HomePage } from '@/pages/HomePage' // ✅ ВОЗВРАЩАЕМ ИМПОРТ
 import { ProfilePage } from '@/pages/ProfilePage'
 
 export const router = createHashRouter([
@@ -11,7 +11,7 @@ export const router = createHashRouter([
     element: <MainLayout />,
     children: [
       {
-        index: true,
+        index: true, // ✅ ВОЗВРАЩАЕМ HomePage НА ЕЕ ЗАКОННОЕ МЕСТО
         element: <HomePage />,
       },
       {
