@@ -1,10 +1,13 @@
+// src/features/game/Penguin.tsx
+
 import { useState } from 'react'
 import { useGameStore } from '@/store/gameStore'
 import { PENGUIN_EVOLUTION_STAGES } from '@/config/game'
 import { TapScore, TapScoreData } from './TapScore'
 
 export const Penguin: React.FC = () => {
-  const { addTap } = useGameStore((state) => state.actions)
+  // ✅ ИЗМЕНЕНИЕ: Получаем actions напрямую из стора
+  const addTap = useGameStore((state) => state.addTap)
   const level = useGameStore((state) => state.level)
   const [animationClass, setAnimationClass] = useState('')
   const [tapScores, setTapScores] = useState<TapScoreData[]>([])
@@ -17,6 +20,7 @@ export const Penguin: React.FC = () => {
   }
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // ✅ ИЗМЕНЕНИЕ: Вызов стал проще
     addTap()
 
     setAnimationClass('')
@@ -27,7 +31,6 @@ export const Penguin: React.FC = () => {
     const rect = e.currentTarget.getBoundingClientRect()
     const newScore: TapScoreData = {
       id: Date.now() + Math.random(),
-      // ✅ ИЗМЕНЕНИЕ: Убираем отсюда 'value: "+1"'
       x: e.clientX - rect.left - 20 + Math.random() * 40,
       y: e.clientY - rect.top - 50 + Math.random() * 20,
     }

@@ -1,5 +1,7 @@
+// src/app/providers/router.tsx
+
 import { createHashRouter } from 'react-router-dom'
-import { MainLayout } from '@/components/layouts/MainLayout'
+import { MainLayout } from '@/widgets/layouts/MainLayout'
 import { HomePage } from '@/pages/HomePage'
 import { ProfilePage } from '@/pages/ProfilePage'
 

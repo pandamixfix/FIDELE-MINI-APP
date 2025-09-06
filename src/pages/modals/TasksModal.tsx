@@ -1,14 +1,9 @@
 import React from 'react'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/shared/ui/Button' // <--- ИСПРАВЛЕНО
 
 export const TasksModal: React.FC = () => {
   return (
-    // ✅ ДОБАВЛЯЕМ ОБЁРТКУ:
-    // mx-auto -> центрирует по горизонтали
-    // w-full -> занимает всю ширину (но не больше max-w-lg)
-    // max-w-lg -> ограничиваем максимальную ширину до адекватного размера
     <div className="mx-auto w-full max-w-lg">
-      {/* Сам контент задания остается без изменений */}
       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 rounded-xl bg-white p-4 shadow-lg dark:bg-gray-800">
         <div className="h-12 w-12 flex-shrink-0">
           <img
@@ -33,8 +28,6 @@ export const TasksModal: React.FC = () => {
           </Button>
         </div>
       </div>
-
-      {/* Здесь в будущем можно будет добавлять другие задания... */}
     </div>
   )
 }

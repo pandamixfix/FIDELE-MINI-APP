@@ -1,5 +1,5 @@
 import { useTelegram } from '@/hooks/useTelegram'
-import { Penguin } from '@/components/game/Penguin'
+import { Penguin } from '@/features/game/Penguin' // <--- ИСПРАВЛЕНО
 
 export function HomePage() {
   const { user } = useTelegram()

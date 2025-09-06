@@ -1,7 +1,7 @@
+// src/shared/ui/Button.tsx
 import React from 'react'
 import clsx from 'clsx'
 
-// Никаких больше сложных типов, только пропсы для обычной кнопки
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
 }
@@ -12,11 +12,13 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles = `
-    bg-white border border-gray-200 rounded-2xl 
-    py-3 px-2 font-bold text-center text-gray-800 
-    shadow-md transition-all duration-100 ease-in-out 
-    active:scale-95 active:shadow-sm
-    dark:bg-gray-800 dark:border-gray-700 dark:text-white
+    w-full rounded-2xl
+    py-3 px-2 font-bold text-center
+    transition-all duration-100 ease-in-out
+    active:scale-95 active:opacity-80
+    focus:outline-none focus:ring-2 focus:ring-offset-2
+    bg-[var(--tg-theme-button-color)]
+    text-[var(--tg-theme-button-text-color)]
   `
 
   return (

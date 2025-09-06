@@ -1,4 +1,7 @@
+// src/store/gameStore.ts
+
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { LEVEL_GOALS } from '@/config/game'
 
 interface GameState {
@@ -6,40 +9,64 @@ interface GameState {
   score: number
   maxScore: number
   bonuses: number
-  actions: {
-    addTap: () => void
-    levelUp: () => void
-  }
+  addTap: () => void
+  _rehydrate: () => void
 }
 
-export const useGameStore = create<GameState>((set, get) => ({
-  level: 1,
-  score: 0,
-  maxScore: LEVEL_GOALS[1],
-  bonuses: 0,
+export const useGameStore = create<GameState>()(
+  persist(
+    (set, get) => ({
+      level: 1, // Стартовый уровень
+      score: 0,
+      maxScore: LEVEL_GOALS[1] ?? 50,
+      bonuses: 0,
 
-  actions: {
-    levelUp: () => {
-      const { level, score, maxScore, bonuses } = get()
-      const levelUpBonus = level * 100
+      addTap: () =>
+        set((state) => {
+          const newScore = state.score + 1
 
-      set({
-        level: level + 1,
-        score: score - maxScore, // Теперь `score` уже обновлён и вычитание корректно
-        maxScore: LEVEL_GOALS[level + 1] ?? maxScore,
-        bonuses: bonuses + levelUpBonus,
-      })
-    },
-    addTap: () => {
-      // ✅ ИСПРАВЛЕНИЕ: Сначала всегда увеличиваем счёт на 1
-      const newScore = get().score + 1
-      set({ score: newScore })
+          if (newScore < state.maxScore) {
+            return { score: newScore }
+          }
 
-      // А теперь, после обновления, проверяем, не пора ли повышать уровень
-      const { maxScore, actions } = get()
-      if (newScore >= maxScore) {
-        actions.levelUp()
-      }
-    },
-  },
-}))
+          const newLevel = state.level + 1
+          if (newLevel >= LEVEL_GOALS.length) {
+            return { score: state.maxScore }
+          }
+
+          const levelUpBonus = state.level * 100
+
+          return {
+            level: newLevel,
+            score: newScore - state.maxScore,
+            maxScore: LEVEL_GOALS[newLevel] ?? state.maxScore, // ✅ Упрощенная логика
+            bonuses: state.bonuses + levelUpBonus,
+          }
+        }),
+
+      // ✅ ВОТ РЕШЕНИЕ:
+      // Эта функция будет вызываться после загрузки данных из localStorage
+      _rehydrate: () => {
+        const { level } = get()
+        // Она берет загруженный `level` и устанавливает правильный `maxScore` для него
+        set({
+          maxScore: LEVEL_GOALS[level] ?? LEVEL_GOALS[LEVEL_GOALS.length - 1],
+        })
+      },
+    }),
+    {
+      name: 'fidele-penguin-progress',
+      partialize: (state) => ({
+        level: state.level,
+        score: state.score,
+        bonuses: state.bonuses,
+      }),
+      // ✅ И мы говорим `persist` вызывать нашу функцию после загрузки
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state._rehydrate()
+        }
+      },
+    }
+  )
+)
